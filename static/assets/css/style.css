@@ -58,26 +58,6 @@ nav ul a {
 	margin: 0;
 }
 
-#gmaps-input,
-#timepicker {
-	background-color: #fff;
-	margin: 10px;
-	padding-left: 10px;
-	border-radius: 3px;
-	border: none;
-	box-shadow: 0 1px 2px rgba(0,0,0,0.2) inset, 0 -1px 0 rgba(0,0,0,0.05) inset;
-}
-
-#gmaps-input { width: 350px; }
-
-#timepicker {
-	width: 100px;
-	z-index: 1;
-	position: fixed;
-	top: 64px;
-	left: 800px;
-}
-
 p.gmaps-name {
 	font-size: 18px;
 	padding: 5px;
@@ -92,6 +72,25 @@ p.gmaps-name {
 	background-color: #eee;
 	height: 100%;
 	border-right: 5px solid #212121;
-	padding: 20px;
+	overflow-y: scroll;
+}
+
+#sidebar p {
+	font-family: 'Roboto', sans-serif;
 	font-size: 24px;
+	padding: 10px 10px 0 10px;
+}
+
+#sidebar #error {
+	font-family: 'Roboto', sans-serif;
+	font-size: 14px;
+	border: 1px solid #212121;
+	padding: 10px;
+	display: none;
+}
+
+a#submitBtn {
+	font-family: 'Roboto', sans-serif;
+	font-size: 16px;
+	margin: 15px;
 }

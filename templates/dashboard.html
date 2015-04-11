@@ -12,11 +12,34 @@
   </head>
   <body>
     {% include 'includes/nav.html' %}
-    <input id="gmaps-input" class="controls" type="text" placeholder="Search Box">
-    <input id="timepicker" class="timepicker controls" type="text" placeholder="Time of Day">
     <div id="map-wrapper" class="row">
       <div id="sidebar" class="col s3">
-        Type in your address on the map to calculate your probability of danger.
+        <p>Type in your address or click on the map to calculate your probability of danger.</p>
+        <form id="locationForm" class="col s12" action="/predict" method="post">
+          <div class="row">
+            <div id="error"></div>
+            <br />
+            <div class="input-field col s12">
+              <input id="MapLat" class="controls validate" type="text" placeholder="Latitude" required>
+              <label for="MapLat">Your Latitude</label>
+            </div>
+            <div class="input-field col s12">
+              <input id="MapLon" class="controls validate" type="text" placeholder="Longitude" required>
+              <label for="MapLon">Your Longitude</label>
+            </div>
+            <div class="input-field col s12">
+              <input id="gmaps-input" class="controls validate" type="text" placeholder="Address" required>
+              <label for="gmaps-input">Your Address</label>
+            </div>
+            <div class="input-field col s12">
+              <input id="timepicker" class="timepicker controls validate" type="text" placeholder="Time of Day" required>
+              <label for="timepicker">Time of Day</label>
+            </div>
+            <div id="submit-wrapper" class="col s12 center-align">
+              <button id="submitBtn" class="waves-effect waves-light btn" type="submit"><i class="mdi-maps-place right"></i>Submit</button>
+            </div>
+          </div>
+        </form>
       </div>
       <div id="map_canvas" class="col s9"></div>
     </div>
