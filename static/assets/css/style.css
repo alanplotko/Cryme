@@ -11,7 +11,7 @@ body {
 ----------------*/
 
 nav {
-	background-color: #50A0AF;
+	background-color: #212121;
 	padding: 0 10px;
 }
 
@@ -53,57 +53,9 @@ nav ul a {
 	Google Maps
 ----------------*/
 
-.stations, .stations svg {
-	position: absolute;
-	color: red;
-}
-
-@-webkit-keyframes redPulse {
-	from {
-		fill: #ff8e8e;
-		-webkit-box-shadow: 0 0 9px #333;
-	}
-
-	50% {
-		fill: #ff4444;
-		-webkit-box-shadow: 0 0 18px #91bd09;
-	}
-
-	to {
-		fill: #ff8e8e;
-		-webkit-box-shadow: 0 0 9px #333; 
-	}
-}
-
-.stations svg {
-	width: 60px;
-	height: 20px;
-	padding-right: 100px;
-	font-size: 12px;
-}
-
-.stations circle {
-	fill: red;
-	stroke: black;
-	stroke-width: 1px;
-	-webkit-animation-name: redPulse;
-	-webkit-animation-duration: 2s;
-	-webkit-animation-iteration-count: infinite; 
-}
-
-.stations circle:hover {
-	fill: blue;
-	cursor: pointer;
-}
-
-.marker_text {
-	fill: black;
-	visibility: hidden;
-}
-
-#map_canvas {
-	width: 100%;
+#map_canvas, div#map-wrapper {
 	height: calc(100vh - 64px);
+	margin: 0;
 }
 
 #gmaps-input,
@@ -121,13 +73,25 @@ nav ul a {
 #timepicker {
 	width: 100px;
 	z-index: 1;
-	position: absolute;
+	position: fixed;
 	top: 64px;
-	left: 460px;
+	left: 800px;
 }
 
 p.gmaps-name {
 	font-size: 18px;
 	padding: 5px;
 	margin: 0;
+}
+
+/*--------------
+	Sidebar
+----------------*/
+
+#sidebar {
+	background-color: #eee;
+	height: 100%;
+	border-right: 5px solid #212121;
+	padding: 20px;
+	font-size: 24px;
 }
