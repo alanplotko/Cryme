@@ -36,6 +36,10 @@ def setup_logging():
 def index():
 	return render_template('index.html', template_folder=tmpl_dir)
 
+@app.route('/dashboard')
+def dashboard():
+	return render_template('dashboard.html', template_folder=tmpl_dir)
+
 @app.errorhandler(401)
 def unauthorized(error):
     return render_template('error.html', template_folder=tmpl_dir, error=401, error_msg="Unauthorized", 
