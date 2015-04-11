@@ -13,14 +13,14 @@ app = Flask(__name__)
 
 # MongoDB Setup
 client = MongoClient(os.getenv('MONGOHQ_URL'))
-db = client.core
+db = client.bc15
 
 # MongoDB Session Setup
 SESSION_TYPE = "mongodb"
 SESSION_MONGODB = client
 SESSION_MONGODB_DB = "bc15"
 SESSION_MONGODB_COLLECT = "sessions"
-app.secret_key = '\xdcU\x8a\xaa\xc9\x1f\xbaVz\xbe\x06\xf9\xb9\xc5`~`\xee\xde\x92\x1b\xb4t\x80'
+app.secret_key = '\xcbC\xb0\x0b\xe6\xe7\xc2\xd3u\xbf\xff\x9b\xfb\xb8\xb1\xb9^Y\xdbQ\xba\x7f\xabl'
 
 app.config.from_object(__name__)
 Session(app)
