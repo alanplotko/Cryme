@@ -1,0 +1,54 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    background-color: #FBFBFB;
+}
+
+/*--------------
+	Navigation
+----------------*/
+
+nav {
+	background-color: #50A0AF;
+	padding: 0 10px;
+}
+
+nav .brand-logo {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 300;
+}
+
+nav .nav-wrapper i {
+	display: inline-block;
+	padding-right: 5px;
+	vertical-align: top;
+}
+
+ul.side-nav li.home:hover {
+  background-color: inherit;
+}
+
+ul.side-nav li.home {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
+	color: #000;
+	font-size: 24px;
+}
+
+ul.side-nav a {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 300;
+	font-size: 18px;
+}
+
+nav ul a {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
+	font-size: 1.2rem;
+}
+
+/*--------------
+	Front Page
+----------------*/

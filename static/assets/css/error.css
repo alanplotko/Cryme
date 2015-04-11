@@ -1,0 +1,25 @@
+/*--------------
+	Error Page
+----------------*/
+
+h1#error_code {
+	font-family: 'Roboto', sans-serif;
+	font-size: 54px;
+	font-weight: 400;
+	margin: 0;
+	padding: 0;
+}
+
+h2#return_home {
+	font-family: 'Roboto', sans-serif;
+	font-size: 28px;
+	font-weight: 300;
+	margin: 0;
+}
+
+a#turnAround {
+	margin-top: 30px;
+	font-family: 'Roboto', sans-serif;
+	font-size: 18px;
+	font-weight: 600;
+}

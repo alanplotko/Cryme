@@ -1,0 +1,25 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cryme | Error {{ error }}</title>
+    {% include 'includes/head.html' %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/error.css') }}" />
+  </head>
+  <body class="valign-wrapper">
+    <div id="content" class="container valign">
+      <h1 id="error_code" class="center-align">Error {{ error }}: {{ error_msg }}</h1>
+      <hr />
+      <h2 id="return_home" class="center-align">{{ return_home }}</h2>
+      <div class="center-align">
+        <a id="turnAround" class="waves-effect waves-light btn" href="{{ url_for('index') }}"><i class="mdi-navigation-arrow-back left"></i>Turn around?</a>
+      </div>
+    </div>
+    <script>
+      $(document).ready(function() {
+        $('.button-collapse').sideNav();
+      });
+    </script>
+  </body>
+</html>
