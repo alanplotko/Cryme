@@ -1,0 +1,27 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    background-color: #212121;
+}
+
+h1.logo {
+	font-family: 'Exo 2', sans-serif;
+	font-weight: 100;
+	font-size: 144px;
+	color: #FAFAFA;
+	margin: 0;
+	padding: 30px;
+}
+
+i.down-arrow {
+	position: relative;
+	top: 30px;
+	font-size: 64px;
+	color: #FAFAFA;
+}
+
+i.down-arrow:hover {
+	color: #BDBDBD;
+}
