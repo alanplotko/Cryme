@@ -8,10 +8,12 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/style.css') }}" />
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true&libraries=places"></script>
     <script type="text/javascript" src="http://square.github.io/crossfilter/d3.v3.min.js"></script>
+    <script src="{{ url_for('static', filename='assets/js/vendor/jquery.timepicker.js') }}"></script>
   </head>
   <body>
     {% include 'includes/nav.html' %}
     <input id="gmaps-input" class="controls" type="text" placeholder="Search Box">
+    <input id="timepicker" class="timepicker controls" type="text" placeholder="Time of Day">
     <div id="map_canvas"></div>
     <script>
       var map;
@@ -21,16 +23,50 @@
       var input = document.getElementById("gmaps-input");
       var searchBox = new google.maps.places.SearchBox(input);
 
+      function codeLatLng(latlng, marker) {
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            var found = false;
+            if (results[1]) {
+              for(var i = 0; i < results[1].address_components.length; i++) {
+                if(results[1].address_components[i].types[0] === "administrative_area_level_1") {
+                  if(results[1].address_components[i].short_name === "DC") {
+                    addMarker(marker);
+                    found = true;
+                    return;
+                  }
+                }
+              }
+            }
+            if(!found) {
+              alert(marker.title + " is out of bounds!");
+            }
+          }
+          else
+          {
+            alert("Error: Could not connect to Google Maps API. Try again later.")
+          }
+        });
+      }
+
       function initialize() {
         var markers = [];
         geocoder = new google.maps.Geocoder();
         var latlng = new google.maps.LatLng(38.889931, -77.009003);
         var myOptions = {
-          zoom: 8,
+          zoom: 15,
           center: latlng,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         }
+
         map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+        var defaultBounds = new google.maps.LatLngBounds(
+          new google.maps.LatLng(38.995817, -77.04106),
+          new google.maps.LatLng(38.790399, -77.040591)
+        );
+        map.fitBounds(defaultBounds);
+
         // Create the search box and link it to the UI element.
         map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
@@ -48,7 +84,6 @@
 
           // For each place, get the icon, place name, and location.
           markers = [];
-          var bounds = new google.maps.LatLngBounds();
           for (var i = 0, place; place = places[i]; i++) {
             var image = {
               url: place.icon,
@@ -65,7 +100,9 @@
               title: place.name,
               position: place.geometry.location
             });
-            addMarker(marker);
+
+            var pos = new google.maps.LatLng(marker.position.lat(), marker.position.lng());
+            codeLatLng(pos, marker);
           }
         });
       }
@@ -98,6 +135,7 @@
 
       $(document).ready(function() {
         $('.button-collapse').sideNav();
+        $('input.timepicker').timepicker({});
       });
     </script>
   </body>

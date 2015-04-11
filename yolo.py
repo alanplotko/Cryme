@@ -76,31 +76,30 @@ def getOffense(off):
 
 
 def main():
-	count = 1
+    inputfile = open('data/crime_data.csv')
+    outputfile = open('data/crime_data_out.csv', 'w')
+    i = 1 
+    for line in inputfile:
+        cm = (line).split(',')
+        if(cm[0] == "CCN"):
+            continue
+        datetime = getDate(cm[1])
+        addr = getAddr(cm[6].strip().split(' '))
+        if(addr == None):
+            #Address not found
+            continue
+        outstr = datetime + "," + str(addr[0]) + "," + str(addr[1])
+        #offsparce = getOffense(cm[3])
 
-	inputfile = open('data/2013.csv')
-	outputfile = open('data/2013out.csv', 'w')
-	
-	for line in inputfile:
-		cm = (line).split(',')
-		if(cm[0] == "CCN"):
-			continue
-		datetime = getDate(cm[1])
-		addr = getAddr(cm[6].strip().split(' '))
-		if(addr == None):
-			#Address not found
-			continue
-		outstr = datetime + "," + str(addr[0]) + "," + str(addr[1])
-		offsparce = getOffense(cm[3])
+        #outstr += "".join(str(e)+"," for e in offsparce)
+        outstr += "\n"
 
-		outstr += "".join(str(e)+"," for e in offsparce)
-		outstr += "\n"
-		print(count)
-		count += 1
-		outputfile.write(outstr)
+        outputfile.write(outstr)
+        print("Wrote line {0} of {1}.".format(i, 20000))
+        i += 1
 
-	inputfile.close()
-	outputfile.close()
+    inputfile.close()
+    outputfile.close()
 
 main()
 
