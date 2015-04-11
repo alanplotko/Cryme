@@ -5,6 +5,11 @@ from flask import Flask, render_template, request, redirect, url_for, session, a
 from flask.ext.session import Session
 from pymongo import MongoClient
 
+#ML Libs
+import numpy as np
+from sklearn.svm import LinearSVC
+from sklearn.externals import joblib
+
 # Miscellaneous
 import os, logging, json
 
@@ -40,6 +45,13 @@ def index():
 def dashboard():
 	return render_template('dashboard.html', template_folder=tmpl_dir)
 
+@app.route('/predict', methods=["POST"])
+def predict():
+    svm = get_predictor()
+    if svm != None:
+        svm.predict(np.array([[request.form["time"], request.form["lat"], request.form["lon"]]]))
+    return render_template('index.html', template_folder=tmpl_dir)
+
 @app.errorhandler(401)
 def unauthorized(error):
     return render_template('error.html', template_folder=tmpl_dir, error=401, error_msg="Unauthorized", 
@@ -57,6 +69,17 @@ def page_not_found(e):
 	return render_template('error.html', template_folder=tmpl_dir, error=404, error_msg="Page Not Found",
 		return_home="We can't find what you're looking for."
 	)
+
+def get_predictor():
+    try:
+        svm = joblib.load("data/svm.pkl")
+    except:
+        crime_data = np.loadtxt(open("data/crimeData.csv", "rb"), delimiter=",", skiprows=1)
+        crime_target = np.loadtxt(open("data/crimeLabels.csv", "rb"), delimiter=",", dtype=str)
+        svm = LinearSVC().fit(crime_data, crime_target)
+        joblib.dump(svm, "data/svm.pkl")
+    finally:
+        return svm
 
 if __name__ == "__main__":
 	port = int(os.environ.get("PORT", 5000))
