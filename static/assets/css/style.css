@@ -26,6 +26,25 @@ nav .nav-wrapper i {
 	vertical-align: top;
 }
 
+nav li a.mapOption {
+	cursor: pointer;
+}
+
+nav li button {
+	padding: 0!important;
+	text-transform: none!important;
+	margin-right: 10px;
+}
+
+nav li button.clicked {
+	box-shadow: inset 1px 0 40px #212121!important;
+}
+
+ul li.active {
+	background-color: #2BBBAD!important;
+	box-shadow: inset 1px 0 10px #212121;
+}
+
 ul.side-nav li.home:hover {
   background-color: inherit;
 }

@@ -3,11 +3,31 @@
     <a href="{{ url_for('index') }}" class="brand-logo"><i class="mdi-action-dashboard"></i>Cryme</a>
     <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
-      <li><a href="{{ url_for('history') }}">Search History</a></li>
+      {% if request.path == "/history" %}
+        <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+        <li class="active"><a href="{{ url_for('history') }}">Search History</a></li>
+      {% else %}
+        <li class="active"><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+        <li><a href="{{ url_for('history') }}">Search History</a></li>
+        <li><button id="toggleHeatmap" class="btn clicked"><a class="mapOption" onclick="toggleHeatmap();">Toggle Heatmap</a></button></li>
+        <li><button id="changeGradient" class="btn"><a class="mapOption" onclick="changeGradient();">Toggle Gradient</a></button></li>
+        <li><button id="changeRadius" class="btn"><a class="mapOption" onclick="changeRadius();">Toggle Radius</a></button></li>
+        <li><button id="changeOpacity" class="btn"><a class="mapOption" onclick="changeOpacity();">Toggle Opacity</a></button></li>
+      {% endif %}
     </ul>
     <ul id="slide-out" class="side-nav">
       <li class="home center-align"><i class="mdi-action-dashboard"></i> Cryme</li>
-      <li><a href="{{ url_for('history') }}">Search History</a></li>
+      {% if request.path == "/history" %}
+        <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+        <li class="active"><a href="{{ url_for('history') }}">Search History</a></li>
+      {% else %}
+        <li class="active"><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+        <li><a href="{{ url_for('history') }}">Search History</a></li>
+        <li><button id="toggleHeatmap" class="btn clicked"><a class="mapOption" onclick="toggleHeatmap();">Toggle Heatmap</a></button></li>
+        <li><button id="changeGradient" class="btn"><a class="mapOption" onclick="changeGradient();">Toggle Gradient</a></button></li>
+        <li><button id="changeRadius" class="btn"><a class="mapOption" onclick="changeRadius();">Toggle Radius</a></button></li>
+        <li><button id="changeOpacity" class="btn"><a class="mapOption" onclick="changeOpacity();">Toggle Opacity</a></button></li>
+      {% endif %}
     </ul>
   </div>
 </nav>

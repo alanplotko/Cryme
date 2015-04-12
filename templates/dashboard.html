@@ -6,14 +6,14 @@
     <title>Cryme</title>
     {% include 'includes/head.html' %}
     <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/style.css') }}" />
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true&libraries=places"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=true&libraries=places,visualization"></script>
     <script type="text/javascript" src="http://square.github.io/crossfilter/d3.v3.min.js"></script>
     <script src="{{ url_for('static', filename='assets/js/vendor/jquery.timepicker.js') }}"></script>
   </head>
   <body>
     {% include 'includes/nav.html' %}
     <div id="map-wrapper" class="row">
-      <div id="sidebar" class="col s3">        
+      <div id="sidebar" class="col s3">
         {% if prediction %}
           <p class="prediction-title">{{ prediction }}</p>
           <p class="prediction-description">If a crime were to occur to you, there would be a <strong>{{ probability }}%</strong> probability, our prediction analysis shows that there is a  of  for <strong>{{ prediction }}</strong> at <i>{{ addr }}</i>.<br /><br />Regardless of the prediction above, always exercise caution, especially late at night.</p>
@@ -66,6 +66,42 @@
           timeFormat: 'H:m'
         });
       });
+
+      function toggleHeatmap() {
+        heatmap.setMap(heatmap.getMap() ? null : map);
+        $("#toggleHeatmap").toggleClass("clicked");
+      }
+
+      function changeGradient() {
+        var gradient = [
+          'rgba(0, 255, 255, 0)',
+          'rgba(0, 255, 255, 1)',
+          'rgba(0, 191, 255, 1)',
+          'rgba(0, 127, 255, 1)',
+          'rgba(0, 63, 255, 1)',
+          'rgba(0, 0, 255, 1)',
+          'rgba(0, 0, 223, 1)',
+          'rgba(0, 0, 191, 1)',
+          'rgba(0, 0, 159, 1)',
+          'rgba(0, 0, 127, 1)',
+          'rgba(63, 0, 91, 1)',
+          'rgba(127, 0, 63, 1)',
+          'rgba(191, 0, 31, 1)',
+          'rgba(255, 0, 0, 1)'
+        ]
+        heatmap.set('gradient', heatmap.get('gradient') ? null : gradient);
+        $("#changeGradient").toggleClass("clicked");
+      }
+
+      function changeRadius() {
+        heatmap.set('radius', heatmap.get('radius') ? null : 20);
+        $("#changeRadius").toggleClass("clicked");
+      }
+
+      function changeOpacity() {
+        heatmap.set('opacity', heatmap.get('opacity') ? null : 0.2);
+        $("#changeOpacity").toggleClass("clicked");
+      }
     </script>
   </body>
 </html>
