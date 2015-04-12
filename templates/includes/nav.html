@@ -25,10 +25,10 @@
       {% else %}
         <li class="active"><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
         <li><a href="{{ url_for('history') }}">Search History</a></li>
-        <li><button id="toggleHeatmap" class="btn clicked"><a class="mapOption" onclick="toggleHeatmap();">Toggle Heatmap</a></button></li>
-        <li><button id="changeGradient" class="btn"><a class="mapOption" onclick="changeGradient();">Toggle Gradient</a></button></li>
-        <li><button id="changeRadius" class="btn"><a class="mapOption" onclick="changeRadius();">Toggle Radius</a></button></li>
-        <li><button id="changeOpacity" class="btn"><a class="mapOption" onclick="changeOpacity();">Toggle Opacity</a></button></li>
+        <li><button id="toggleHeatmap" class="btn clicked mobile"><a class="mapOption" onclick="toggleHeatmap();">Toggle Heatmap</a></button></li>
+        <li><button id="changeGradient" class="btn mobile"><a class="mapOption" onclick="changeGradient();">Toggle Gradient</a></button></li>
+        <li><button id="changeRadius" class="btn mobile"><a class="mapOption" onclick="changeRadius();">Toggle Radius</a></button></li>
+        <li><button id="changeOpacity" class="btn mobile"><a class="mapOption" onclick="changeOpacity();">Toggle Opacity</a></button></li>
       {% endif %}
     </ul>
   </div>

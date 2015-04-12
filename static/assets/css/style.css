@@ -30,6 +30,16 @@ nav li a.mapOption {
 	cursor: pointer;
 }
 
+nav li button.mobile, nav li button.clicked.mobile {
+	box-shadow: inset 1px 0 40px #eee!important;
+}
+
+
+nav li button.mobile a {
+	line-height: 36px;
+	color: #fff;
+}
+
 nav li button {
 	padding: 0!important;
 	text-transform: none!important;
