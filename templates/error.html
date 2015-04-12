@@ -7,13 +7,13 @@
     {% include 'includes/head.html' %}
     <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/error.css') }}" />
   </head>
-  <body class="valign-wrapper">
+  <body class="valign-wrapper" style="height: 100%;">
     <div id="content" class="container valign">
-      <h1 id="error_code" class="center-align">Error {{ error }}: {{ error_msg }}</h1>
+      <h1 id="error_code" class="center-align">{% if error_msg != "No Search History Found" %}Error {% endif %}{% if error %}{{ error }}: {% endif %}{{ error_msg }}</h1>
       <hr />
       <h2 id="return_home" class="center-align">{{ return_home }}</h2>
       <div class="center-align">
-        <a id="turnAround" class="waves-effect waves-light btn" href="{{ url_for('index') }}"><i class="mdi-navigation-arrow-back left"></i>Turn around?</a>
+        <a id="turnAround" class="waves-effect waves-light btn" href="{{ url_for('dashboard') }}"><i class="mdi-navigation-arrow-back left"></i>Turn around?</a>
       </div>
     </div>
     <script>

@@ -15,9 +15,19 @@ h1.logo {
 	padding: 30px;
 }
 
+h2 {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 100;
+	font-size: 54px;
+	color: #FAFAFA;
+	margin: 0;
+	padding: 30px;
+	line-height: 64px;
+}
+
 i.down-arrow {
 	position: relative;
-	top: 30px;
+	top: 10px;
 	font-size: 64px;
 	color: #FAFAFA;
 }

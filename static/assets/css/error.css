@@ -2,6 +2,14 @@
 	Error Page
 ----------------*/
 
+html, body {
+	height: 100%;
+}
+
+body {
+	background-color: #eee;
+}
+
 h1#error_code {
 	font-family: 'Roboto', sans-serif;
 	font-size: 54px;

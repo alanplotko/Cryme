@@ -12,7 +12,7 @@ from sklearn.externals import joblib
 from sklearn.preprocessing import scale
 
 # Miscellaneous
-import os, logging, json
+import os, logging, json, datetime
 
 tmpl_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
 app = Flask(__name__)
@@ -48,10 +48,24 @@ def dashboard():
 
 @app.route('/history')
 def history():
-	return render_template('history.html', template_folder=tmpl_dir)
+	_id = "session:" + str(session.sid)
+	data = db.history.find_one({ "id" : _id })
+	if data != None:
+		return render_template('history.html', data=data, template_folder=tmpl_dir)
+	return render_template('error.html', template_folder=tmpl_dir, error_msg="No Search History Found", 
+		return_home="You have to search the map before you can see your search history."	
+	)
+
+@app.route('/clear')
+def clear_history():
+	_id = "session:" + str(session.sid)
+	data = db.history.remove({ "id" : _id })
+	return redirect(url_for('history'))
+
 
 @app.route('/predict', methods=["POST"])
 def predict():
+	_id = "session:" + str(session.sid)
 	hours, minutes = [int(i) for i in request.form["timepicker"].split(':')]
 	time = (60 * hours) + minutes
 	svm = get_predictor()
@@ -59,6 +73,14 @@ def predict():
 		data = scale(np.array([[float(time), float(request.form["MapLat"]), float(request.form["MapLon"])]]))
 		prediction = svm.predict(data)
 	probability = round(np.amax(svm.predict_proba(data)) * 100, 2)
+	db.history.update({ "id" : _id }, {"$push": { "history": {
+		"timeOfDay": int(time),
+		"latitude": float(request.form["MapLat"]),
+		"longitude": float(request.form["MapLon"]),
+		"address": str(request.form["gmaps-input"]),
+		"probability": float(probability),
+		"prediction": str(prediction[0])[2:-1]
+	}}}, upsert=True);
 	return render_template('dashboard.html', prediction=str(prediction[0])[2:-1], addr=request.form["gmaps-input"], lat=request.form["MapLat"], 
 		lng=request.form["MapLon"], probability=probability, template_folder=tmpl_dir)
 

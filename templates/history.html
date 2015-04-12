@@ -9,5 +9,39 @@
   </head>
   <body>
     {% include 'includes/nav.html' %}
+    <div id="history" class="container">
+      <div class="row">
+          {% for card in data['history'] %}
+            <div class="col s6">
+              <div class="card">
+                {% set count = 15 %}
+                <div class="card-image waves-effect waves-block waves-light">
+                  <img class="activator" src="https://maps.googleapis.com/maps/api/staticmap?center={{ card.address }}&zoom={{ count }}&size=400x300&markers={{ card.address }}">
+                </div>
+                <div class="card-content">
+                  <span class="card-title activator grey-text text-darken-4">{{ card.address }} <i class="mdi-navigation-more-vert right"></i></span>
+                </div>
+                <div class="card-reveal">
+                  <span class="card-title grey-text text-darken-4"><strong>Result:</strong> {{ card.prediction }}  <i class="mdi-navigation-close right"></i></span>
+                  <p class="prediction-description">If a crime were to occur to you, there would be a <strong>{{ card.probability }}% </strong>probability, our prediction analysis shows that there is a  of  for <strong>{{ card.prediction }}</strong> at <i>{{ card.address }}</i>.<br /><br />Regardless of the prediction above, always exercise caution, especially late at night.</p>
+                </div>
+                <div class="card-action">
+                  <a onclick="zoomIn(this, {{ count + 2 }}, '{{ card.address }}');">Zoom In</a>
+                  <a onclick="zoomOut(this, {{ count }}, '{{ card.address }}');">Zoom Out</a>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+      </div>
+    </div>
+    <script>
+      function zoomIn(e, count, addr) {
+        $(e).parent().parent().parent().find("img").attr("src", "https://maps.googleapis.com/maps/api/staticmap?center=" + addr + "&zoom=" + count + "&size=400x300&markers=" + addr);
+      }
+
+      function zoomOut(e, count, addr) {
+        $(e).parent().parent().parent().find("img").attr("src", "https://maps.googleapis.com/maps/api/staticmap?center=" + addr + "&zoom=" + count + "&size=400x300&markers=" + addr);
+      }
+    </script>
   </body>
 </html>

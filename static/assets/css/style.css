@@ -33,6 +33,7 @@ nav li a.mapOption {
 nav li button {
 	padding: 0!important;
 	text-transform: none!important;
+	margin-left: 10px;
 	margin-right: 10px;
 }
 
@@ -42,7 +43,6 @@ nav li button.clicked {
 
 ul li.active {
 	background-color: #2BBBAD!important;
-	box-shadow: inset 1px 0 10px #212121;
 }
 
 ul.side-nav li.home:hover {
@@ -142,6 +142,48 @@ input {
 a#submitBtn {
 	font-family: 'Roboto', sans-serif;
 	font-size: 16px;
+}
+
+/*--------------
+	History
+----------------*/
+
+#history {
+	position: relative;
+	top: 30px;
+}
+
+#history h1 {
+	font-family: "Roboto", sans-serif;
+	font-weight: 300;
+	font-size: 36px;
+	margin: 0;
+}
+
+.card .card-action a {
+	font-family: "Roboto", sans-serif;
+	font-size: 16px;
+	color: #000;
+	cursor: pointer;
+}
+
+.card .card-action a:hover {
+	color: #2BBBAD;
+}
+
+.card-reveal {
+	font-family: "Roboto", sans-serif;
+	font-size: 16px;
+}
+
+.card .card-title {
+	font-family: "Roboto", sans-serif;
+	font-size: 24px;
+	margin: 0;
+}
+
+.card .card-content .card-title {
+  line-height: 36px;
 }
 
 /*--------------
