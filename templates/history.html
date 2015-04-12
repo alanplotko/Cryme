@@ -27,7 +27,6 @@
                 </div>
                 <div class="card-action">
                   <a onclick="zoomIn(this, {{ count + 2 }}, '{{ card.address }}');">Zoom In</a>
-                  <a onclick="zoomOut(this, {{ count }}, '{{ card.address }}');">Zoom Out</a>
                 </div>
               </div>
             </div>
@@ -37,10 +36,14 @@
     <script>
       function zoomIn(e, count, addr) {
         $(e).parent().parent().parent().find("img").attr("src", "https://maps.googleapis.com/maps/api/staticmap?center=" + addr + "&zoom=" + count + "&size=400x300&markers=" + addr);
+        $(e).attr("onclick", "zoomOut(this, 15, '" + addr + "');");        
+        $(e).text("Zoom Out");
       }
 
       function zoomOut(e, count, addr) {
         $(e).parent().parent().parent().find("img").attr("src", "https://maps.googleapis.com/maps/api/staticmap?center=" + addr + "&zoom=" + count + "&size=400x300&markers=" + addr);
+        $(e).attr("onclick", "zoomIn(this, 17, '" + addr + "');");
+        $(e).text("Zoom In");
       }
     </script>
   </body>
