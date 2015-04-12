@@ -2,8 +2,6 @@ var map;
 var global_markers = [];
 var infowindow = new google.maps.InfoWindow({});
 var count = 0;
-var input = document.getElementById("gmaps-input");
-var searchBox = new google.maps.places.SearchBox(input);
 var markers = [];
 geocoder = new google.maps.Geocoder();
 var latlng = new google.maps.LatLng(38.889931, -77.009003);
@@ -26,31 +24,35 @@ var defaultBounds = new google.maps.LatLngBounds(
 );
 map.fitBounds(defaultBounds);
 
- var input = document.getElementById('gmaps-input');
- var autocomplete = new google.maps.places.Autocomplete(input, {
+var input = document.getElementById('gmaps-input');
+var autocomplete;
+var infowindow;
+
+if(input != null) {
+  autocomplete = new google.maps.places.Autocomplete(input, {
      types: ["geocode"]
- });
+  });
+  autocomplete.bindTo('bounds', map);
+  infowindow = new google.maps.InfoWindow();
+  
+  google.maps.event.addListener(autocomplete, 'place_changed', function (event) {
+    infowindow.close();
+    var place = autocomplete.getPlace();
+    if (place.geometry.viewport) {
+      map.fitBounds(place.geometry.viewport);
+    } else {
+      map.setCenter(place.geometry.location);
+      map.setZoom(17);
+    }
+    codeLatLng(place.name, place.geometry.location, false);
+  });
 
- autocomplete.bindTo('bounds', map);
- var infowindow = new google.maps.InfoWindow();
-
- google.maps.event.addListener(autocomplete, 'place_changed', function (event) {
-  infowindow.close();
-  var place = autocomplete.getPlace();
-  if (place.geometry.viewport) {
-    map.fitBounds(place.geometry.viewport);
-  } else {
-    map.setCenter(place.geometry.location);
-    map.setZoom(17);
-  }
-  codeLatLng(place.name, place.geometry.location, false);
- });
-
- google.maps.event.addListener(map, 'click', function (event) {
-     geocoder.geocode({ 'latLng': event.latLng }, function (results, status) {
+  google.maps.event.addListener(map, 'click', function (event) {
+    geocoder.geocode({ 'latLng': event.latLng }, function (results, status) {
       codeLatLng(results[0].formatted_address, event.latLng, true);
-     });
- });
+    });
+  });
+}
 
 function codeLatLng(name, latlng, click) {
   var geocoder = new google.maps.Geocoder();
@@ -65,9 +67,11 @@ function codeLatLng(name, latlng, click) {
               $('#error').html("<strong>Reminder:</strong> Don't forget to enter the time of day!");
               $('#MapLat').val(latlng.lat());
               $('#MapLon').val(latlng.lng());
+              $('#MapLat, #MapLon').addClass("valid");
               moveMarker(name, latlng);
               if(click) {
                 $('#gmaps-input').val(name);
+                $('#gmaps-input').addClass("valid");
               }
               found = true;
               return;
@@ -81,38 +85,15 @@ function codeLatLng(name, latlng, click) {
         $('#MapLat').val("");
         $('#MapLon').val("");
         $('#gmaps-input').val("");
+        $('#MapLat, #MapLon, #gmaps-input').removeClass("valid");
       }
     }
     else
     {
-      alert("Error: Could not connect to Google Maps API. Please try again later.");
+      $('#error').html("<strong>Error:</strong> Could not connect to Google Maps API. Please try again in a few minutes.");
     }
   });
 }
-
-/*function addMarker(marker) {
-  var lat = marker.position.lat();
-  var lng = marker.position.lng();
-  var name = marker.title;
-  var myLatlng = new google.maps.LatLng(lat, lng);
-  var contentString = "<html><body><div><p class='gmaps-name'>" + name + "</p></div></body></html>";
-
-  var marker = new google.maps.Marker({
-      position: myLatlng,
-      map: map,
-      title: "Coordinates: " + lat + " , " + lng + " | Name: " + name
-  });
-
-  marker['infowindow'] = contentString;
-
-  global_markers[count] = marker;
-
-  google.maps.event.addListener(global_markers[count], 'click', function() {
-      infowindow.setContent(this['infowindow']);
-      infowindow.open(map, this);
-  });
-  count++;
-}*/
 
 function moveMarker(placeName, latlng) {
   marker.setIcon(image);

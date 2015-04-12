@@ -13,41 +13,58 @@
   <body>
     {% include 'includes/nav.html' %}
     <div id="map-wrapper" class="row">
-      <div id="sidebar" class="col s3">
-        <p>Type in your address or click on the map to calculate your probability of danger.</p>
-        <form id="locationForm" class="col s12" action="/predict" method="post">
-          <div class="row">
-            <div id="error"></div>
-            <br />
-            <div class="input-field col s12">
-              <input id="MapLat" class="controls validate" type="text" placeholder="Latitude" required>
-              <label for="MapLat">Your Latitude</label>
+      <div id="sidebar" class="col s3">        
+        {% if prediction %}
+          <p class="prediction-title">{{ prediction }}</p>
+          <p class="prediction-description">If a crime were to occur to you, there would be a <strong>{{ probability }}%</strong> probability, our prediction analysis shows that there is a  of  for <strong>{{ prediction }}</strong> at <i>{{ addr }}</i>.<br /><br />Regardless of the prediction above, always exercise caution, especially late at night.</p>
+        {% else %}
+          <p>Type in your address or click on the map to begin.</p>
+          <form id="locationForm" class="col s12" action="/predict" method="post">
+            <div class="row">
+              <div id="error"></div>
+              <br />
+              <div class="input-field col s12">
+                <input id="MapLat" class="controls validate" name="MapLat" type="text" placeholder="Latitude" required>
+                <label for="MapLat">Your Latitude</label>
+              </div>
+              <div class="input-field col s12">
+                <input id="MapLon" class="controls validate" name="MapLon" type="text" placeholder="Longitude" required>
+                <label for="MapLon">Your Longitude</label>
+              </div>
+              <div class="input-field col s12">
+                <input id="gmaps-input" class="controls validate" name="gmaps-input" type="text" placeholder="Address" required>
+                <label for="gmaps-input">Your Address</label>
+              </div>
+              <div class="input-field col s12">
+                <input id="timepicker" class="timepicker controls validate" name="timepicker" type="text" placeholder="Time of Day" required>
+                <label for="timepicker">Time of Day</label>
+              </div>
+              <div id="submit-wrapper" class="col s12 center-align">
+                <button id="submitBtn" class="waves-effect waves-light btn" type="submit"><i class="mdi-maps-place right"></i>Submit</button>
+              </div>
             </div>
-            <div class="input-field col s12">
-              <input id="MapLon" class="controls validate" type="text" placeholder="Longitude" required>
-              <label for="MapLon">Your Longitude</label>
-            </div>
-            <div class="input-field col s12">
-              <input id="gmaps-input" class="controls validate" type="text" placeholder="Address" required>
-              <label for="gmaps-input">Your Address</label>
-            </div>
-            <div class="input-field col s12">
-              <input id="timepicker" class="timepicker controls validate" type="text" placeholder="Time of Day" required>
-              <label for="timepicker">Time of Day</label>
-            </div>
-            <div id="submit-wrapper" class="col s12 center-align">
-              <button id="submitBtn" class="waves-effect waves-light btn" type="submit"><i class="mdi-maps-place right"></i>Submit</button>
-            </div>
-          </div>
-        </form>
+          </form>
+        {% endif %}
       </div>
       <div id="map_canvas" class="col s9"></div>
     </div>
     <script src="{{ url_for('static', filename='assets/js/gmaps.js') }}"></script>
+    {% if prediction %}
+    <script>
+      var position = new google.maps.LatLng({{ lat }}, {{ lng }});
+      geocoder.geocode({ 'latLng': position }, function (results, status) {
+        codeLatLng(results[0].formatted_address, position, true);
+        map.setZoom(17);
+        map.panTo(position);
+      });
+    </script>
+    {% endif %}
     <script>
       $(document).ready(function() {
         $('.button-collapse').sideNav();
-        $('input.timepicker').timepicker({});
+        $('input.timepicker').timepicker({
+          timeFormat: 'H:m'
+        });
       });
     </script>
   </body>

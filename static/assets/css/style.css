@@ -65,6 +65,19 @@ p.gmaps-name {
 }
 
 /*--------------
+	Form
+----------------*/
+
+label {
+	font-family: 'Roboto', sans-serif;
+	font-weight: bold;
+}
+
+input {
+	font-family: 'Roboto', sans-serif;
+}
+
+/*--------------
 	Sidebar
 ----------------*/
 
@@ -81,6 +94,20 @@ p.gmaps-name {
 	padding: 10px 10px 0 10px;
 }
 
+#sidebar p.prediction-title {
+	font-family: 'Roboto', sans-serif;
+	font-size: 24px;
+	border-bottom: 2px solid #212121;
+	padding: 10px 10px 0 0;
+	display: block;
+}
+
+#sidebar p.prediction-description {
+	font-family: 'Roboto', sans-serif;
+	font-size: 18px;
+	padding: 10px 10px 0 10px;
+}
+
 #sidebar #error {
 	font-family: 'Roboto', sans-serif;
 	font-size: 14px;
@@ -89,8 +116,36 @@ p.gmaps-name {
 	display: none;
 }
 
+#submit-wrapper {
+	margin-top: 30px;
+}
+
 a#submitBtn {
 	font-family: 'Roboto', sans-serif;
 	font-size: 16px;
-	margin: 15px;
+}
+
+/*--------------
+	Scrollbar
+----------------*/
+
+::-webkit-scrollbar {
+	width: 8px;
+	height: 4px;
+}
+
+::-webkit-scrollbar-track-piece {
+	background-color: #eee;
+}
+
+::-webkit-scrollbar-thumb:vertical {
+	height: 5px;
+	background-color: #adadad;
+	box-shadow: inset 1px 0 4px #999;
+}
+
+::-webkit-scrollbar-thumb:horizontal {
+	width: 5px;
+	background-color: #adadad;
+	box-shadow: inset 1px 0 4px #999;
 }
